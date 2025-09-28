@@ -19,7 +19,8 @@ class Settings(BaseSettings):
     
     # Database
     MONGODB_URL: str = Field(
-        default="mongodb://localhost:27017",
+        # default="mongodb://admin:password123@localhost:27017",
+        default="mongodb://mongo:27017/wingify",
         description="MongoDB connection URL"
     )
     DATABASE_NAME: str = Field(
@@ -84,7 +85,8 @@ class Settings(BaseSettings):
         default=[
             "http://localhost:3000",
             "https://localhost:3000",
-            "http://127.0.0.1:3000"
+            "http://127.0.0.1:3000",
+            "http://localhost:5173"
         ],
         description="Allowed CORS origins"
     )

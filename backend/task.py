@@ -1,6 +1,9 @@
 from crewai import Task
 from agents import financial_analyst, document_verifier, investment_advisor, risk_assessor
-from tools.financial_tools import FinancialDocumentTool, search_tool
+from tools.financial_tools import ParseDocTool
+from tools.search_tool import SerperSearchTool
+search_tool = SerperSearchTool()
+read_tool=ParseDocTool()
 
 verification_task = Task(
     description="""Verify and validate the financial document at {file_path}.
@@ -16,7 +19,7 @@ verification_task = Task(
 - Anomalies/inconsistencies
 - Status: VERIFIED / NEEDS_REVIEW / REJECTED""",
     agent=document_verifier,
-    tools=[FinancialDocumentTool.read_document],
+    tools=[read_tool],
     async_execution=False,
 )
 
@@ -31,7 +34,7 @@ balance sheet quality, cash flows, and industry comparisons.""",
 - Strengths/weaknesses with data
 - Industry context""",
     agent=financial_analyst,
-    tools=[FinancialDocumentTool.read_document, search_tool],
+    tools=[read_tool, search_tool],
     async_execution=False,
 )
 
@@ -46,7 +49,7 @@ macro/industry risks, ESG factors. Quantify where possible.""",
 - Mitigation strategies
 - Stress scenarios""",
     agent=risk_assessor,
-    tools=[FinancialDocumentTool.read_document, search_tool],
+    tools=[read_tool, search_tool],
     async_execution=False,
 )
 

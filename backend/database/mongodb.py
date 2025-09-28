@@ -4,7 +4,6 @@ from beanie import init_beanie
 from config.settings import settings
 from models.user import User
 from models.document import Document
-from models.analysis import Analysis
 
 
 logger = logging.getLogger(__name__)
@@ -22,9 +21,10 @@ async def connect_to_mongo():
         db.client = AsyncIOMotorClient(settings.MONGODB_URL)
         await init_beanie(
         database=db.client[settings.DATABASE_NAME],
-        document_models=[User, Document, Analysis],
+        document_models=[User, Document],
         )
         logger.info("Connected to MongoDB")
+        print("Connected to MongoDB %s", settings.MONGODB_URL)
     except Exception as e:
         logger.exception("Failed to connect to MongoDB: %s", e)
         raise

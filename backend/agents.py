@@ -4,10 +4,15 @@ load_dotenv()
 
 from crewai import Agent
 from langchain_openai import ChatOpenAI
-from backend.tools.financial_tools import FinancialDocumentTool, search_tool
+from tools.financial_tools import ParseDocTool,ExtractMetricsTool
+from tools.search_tool import SerperSearchTool
 from config.settings import settings
 
 logger = logging.getLogger(__name__)
+
+parse_financial_doc = ParseDocTool()
+extract_financial_metrics_tool = ExtractMetricsTool()
+search_tool = SerperSearchTool()
 
 # Initialize LLM
 llm = ChatOpenAI(
@@ -27,7 +32,7 @@ financial_analyst = Agent(
         "Experienced financial analyst with 15+ years in banking and equity research. "
         "Analyze statements, compute ratios, and provide balanced insights with risks."
     ),
-    tools=[FinancialDocumentTool.read_document, search_tool],
+    tools=[parse_financial_doc, extract_financial_metrics_tool, search_tool],
     llm=llm,
     max_iter=3,
     max_rpm=60,
@@ -42,7 +47,7 @@ document_verifier = Agent(
     backstory=(
         "Specialist in GAAP/IFRS/SEC reporting. Validate integrity and extract accurate data."
     ),
-    tools=[FinancialDocumentTool.read_document],
+    tools=[parse_financial_doc, search_tool],
     llm=llm,
     max_iter=2,
     max_rpm=60,
@@ -72,7 +77,7 @@ risk_assessor = Agent(
     backstory=(
         "Risk professional in liquidity/credit/market risk, stress testing, and compliance."
     ),
-    tools=[FinancialDocumentTool.read_document, search_tool],
+    tools=[parse_financial_doc, extract_financial_metrics_tool],
     llm=llm,
     max_iter=3,
     max_rpm=60,
