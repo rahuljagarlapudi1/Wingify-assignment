@@ -312,7 +312,7 @@ You can try Tesla’s Q2‑2025 update (or any investor PDF) by placing it in `d
 
 ---
 
-### Frontend (React – based on your `App.jsx`)
+### Frontend
 
 1) **Routing (weblink)**
    - Use React Router:
