@@ -4,8 +4,8 @@ from beanie import PydanticObjectId
 from datetime import datetime
 from crewai import Crew, Process, Task
 from models.document import Document, DocumentStatus
-from agents import financial_analyst, document_verifier, investment_advisor, risk_assessor
-from task import (
+from crew.agents import financial_analyst, document_verifier, investment_advisor, risk_assessor
+from crew.task import (
     verification_task,
     financial_analysis_task,
     risk_analysis_task,

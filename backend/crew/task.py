@@ -1,5 +1,5 @@
 from crewai import Task
-from agents import financial_analyst, document_verifier, investment_advisor, risk_assessor
+from crew.agents import financial_analyst, document_verifier, investment_advisor, risk_assessor
 from tools.financial_tools import ParseDocTool
 from tools.search_tool import SerperSearchTool
 search_tool = SerperSearchTool()

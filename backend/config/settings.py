@@ -19,8 +19,8 @@ class Settings(BaseSettings):
     
     # Database
     MONGODB_URL: str = Field(
-        # default="mongodb://admin:password123@localhost:27017",
-        default="mongodb://mongo:27017/wingify",
+        default="mongodb://admin:password123@localhost:27017",
+        # default="mongodb://mongo:27017/wingify",
         description="MongoDB connection URL"
     )
     DATABASE_NAME: str = Field(
